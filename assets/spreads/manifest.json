@@ -1,0 +1,567 @@
+{
+  "schemaVersion": 1,
+  "assetType": "tarot spread editorial photography",
+  "generator": "image_gen.imagegen",
+  "processing": {
+    "operation": "Resize and format conversion only; no creative edits; source PNG files preserved.",
+    "resampling": "Lanczos",
+    "main": {
+      "width": 1200,
+      "height": 675,
+      "quality": 82
+    },
+    "thumbnail": {
+      "width": 480,
+      "height": 270,
+      "quality": 80
+    }
+  },
+  "assets": [
+    {
+      "id": "day",
+      "source": {
+        "file": "exec-3a27fb6d-ccc7-4e5f-8739-1915d1a9470b.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2443405,
+        "sha256": "b9ee3d9686844fb9df0da2891371f2c51ce9593c7e92616005eb8ca8061dc6ca"
+      },
+      "description": "Одна сиреневая карта на светлом льне, чашка чая и веточка сирени в мягком утреннем свете.",
+      "prompt": null,
+      "promptStatus": "Original prompt was not supplied with the seven approved source images; description records the inspected scene.",
+      "provenance": "Previously generated with image_gen.imagegen in the same project and selected by the project coordinator; reused without regeneration.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "day.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 85958,
+          "sha256": "c01f4bbc7afc72d63138a0d84168e820fa47d5b3f47d9d47017673f4411181c8"
+        },
+        {
+          "file": "day-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 12298,
+          "sha256": "927727c92d22711065775bd50b826b56e990c106b9af1523cb5e518a81d25e72"
+        }
+      ]
+    },
+    {
+      "id": "feelings",
+      "source": {
+        "file": "exec-c05c30d4-9e4b-4fbb-89dd-6f9adb5f1432.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2731728,
+        "sha256": "54bd21ef500f5a04f140b92434380461381c4fa883d7e6e8ed3947bb0cc2d125"
+      },
+      "description": "Три сиреневые карты, две светлые чашки и пудровая роза на мягкой льняной ткани.",
+      "prompt": null,
+      "promptStatus": "Original prompt was not supplied with the seven approved source images; description records the inspected scene.",
+      "provenance": "Previously generated with image_gen.imagegen in the same project and selected by the project coordinator; reused without regeneration.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "feelings.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 112508,
+          "sha256": "0754ce37988769d382d472d7104712be5fd30a7b14bf9b38bf152c1d5c70c724"
+        },
+        {
+          "file": "feelings-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 17228,
+          "sha256": "ed7123326a60f0ecb79add40ad7ac8a66d2000e97187585e77f22ac8c677e8b0"
+        }
+      ]
+    },
+    {
+      "id": "yes-no",
+      "source": {
+        "file": "exec-3fc0db85-a0f4-4353-a87a-9192ed1a3b8b.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2925028,
+        "sha256": "3c7ac8ac049a0dcb0b6d757bcb2617911d8ae4e11ffb396179958f11f0532887"
+      },
+      "description": "Три сиреневые карты между светлым и тёмным камнями, золотистый ключ и веточки лаванды.",
+      "prompt": null,
+      "promptStatus": "Original prompt was not supplied with the seven approved source images; description records the inspected scene.",
+      "provenance": "Previously generated with image_gen.imagegen in the same project and selected by the project coordinator; reused without regeneration.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "yes-no.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 116014,
+          "sha256": "24cbb39bb2a266f72cbe3e63a232a0391a90dda8ef0b9f451bad8c6b96599b20"
+        },
+        {
+          "file": "yes-no-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 17280,
+          "sha256": "31e3e5a56cad89ff0a0da73bc4b46fa5f67cf7bc4538467b4bb855d11e068eb8"
+        }
+      ]
+    },
+    {
+      "id": "choice",
+      "source": {
+        "file": "exec-75b73d78-a919-43e1-8314-477f158f74bd.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 3278188,
+        "sha256": "42043be40700a89ed71b807b3e31b3f614181cc9f8cb344843b4886597e23142"
+      },
+      "description": "Пять карт двумя группами с общей центральной картой, сиреневая лента и небольшой компас.",
+      "prompt": null,
+      "promptStatus": "Original prompt was not supplied with the seven approved source images; description records the inspected scene.",
+      "provenance": "Previously generated with image_gen.imagegen in the same project and selected by the project coordinator; reused without regeneration.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "choice.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 154040,
+          "sha256": "1e07032b0bf598c114c773b8711f52ea2511c34f66a42d8f14920461a15d9b2f"
+        },
+        {
+          "file": "choice-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 17606,
+          "sha256": "c62df31b7872b7c246535d3c79332646ec6a4d5922760a44482ba8d66a615da8"
+        }
+      ]
+    },
+    {
+      "id": "thinking",
+      "source": {
+        "file": "exec-e93dd021-44c2-4baf-b6d3-b3051322eb49.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2788429,
+        "sha256": "dc15d68669108bc1440dd54cf4a8566ad4ecec401cf264ae1f5bae4c32889086"
+      },
+      "description": "Четыре карты рядом с чистым конвертом, сложенным письмом, чашкой чая и сиренью у окна.",
+      "prompt": null,
+      "promptStatus": "Original prompt was not supplied with the seven approved source images; description records the inspected scene.",
+      "provenance": "Previously generated with image_gen.imagegen in the same project and selected by the project coordinator; reused without regeneration.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "thinking.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 115132,
+          "sha256": "b57e857e632c2392f5494c0c1dbbc832e8b9a2464765e3ecbe83716dcee510ce"
+        },
+        {
+          "file": "thinking-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 19082,
+          "sha256": "4163a61f1c59a31f78bbe5999213e9de8f6df6ec27d44f1e804d2df2f18558c0"
+        }
+      ]
+    },
+    {
+      "id": "together",
+      "source": {
+        "file": "exec-0c7b90cf-301b-4f68-b3c7-448472d41c3c.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 3062716,
+        "sha256": "53bcf8e14976ffed896cc5ed86dadeda1749389f9d7bf8da923f04722eca856d"
+      },
+      "description": "Пять сиреневых карт в композиции с двумя чашками, тонкой лентой, цветами и золотистым подносом.",
+      "prompt": null,
+      "promptStatus": "Original prompt was not supplied with the seven approved source images; description records the inspected scene.",
+      "provenance": "Previously generated with image_gen.imagegen in the same project and selected by the project coordinator; reused without regeneration.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "together.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 145908,
+          "sha256": "96faed5dcd02f20ac36d65663ccbf3b2ce1b34ce01eb462703f733eb890a36f9"
+        },
+        {
+          "file": "together-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 19512,
+          "sha256": "f085fab547f40c9758680b7a16d73992b60bfb062adfe0e057d4fd5efb3d1407"
+        }
+      ]
+    },
+    {
+      "id": "week",
+      "source": {
+        "file": "exec-694435bc-8d5b-4d00-9f95-aa5c833fedd6.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2713040,
+        "sha256": "9fdb431a3044693b07e6902f9cda8f8a0525d33964005199ba4ff8097b76b41d"
+      },
+      "description": "Четыре карты над открытым недатированным планером, чашка чая, золотистая ручка и зелёная веточка.",
+      "prompt": null,
+      "promptStatus": "Original prompt was not supplied with the seven approved source images; description records the inspected scene.",
+      "provenance": "Previously generated with image_gen.imagegen in the same project and selected by the project coordinator; reused without regeneration.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "week.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 92734,
+          "sha256": "07c7a2d16187a01ea54c155b0ce05cd941c2f13513da969f03373cc82bb19217"
+        },
+        {
+          "file": "week-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 13962,
+          "sha256": "c1e9a142933a5f372a4f8198d291832c56f69a3f4700fa43d94db69c70122791"
+        }
+      ]
+    },
+    {
+      "id": "month",
+      "source": {
+        "file": "exec-0728ce10-0bfe-4d46-ab74-8dea41f17b73.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2878838,
+        "sha256": "46c8dc4d8daad7d0b8f5f7fbc3c1c98ba7fa22c694dd2adb10a4c8cfcc26e23b"
+      },
+      "description": "Пять сиреневых карт веером рядом с открытым чистым блокнотом и золотистым полумесяцем.",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium editorial still-life photo for the Russian tarot website «Таро ясно», monthly reading thumbnail. Create a realistic wide landscape photograph, aspect ratio 16:9. On softly folded milky ivory linen, arrange exactly FIVE separate tarot cards face down in a thoughtful loose fan across the centre. The card backs are dusty lilac with fine muted gold celestial linework: stars, crescent moons and restrained ornamental borders. Add an open ivory notebook with completely blank pages and a small brushed-gold crescent moon ornament. Palette: warm milky ivory, dusty lilac, subdued antique gold. Soft natural window light, gentle shadows, believable paper and linen texture, elegant calm contemporary editorial photography, no excessive glow. Keep all five cards and the key objects inside the central 70% of the composition with comfortable margins, suitable for a website crop. No people, no hands, no faces, no readable letters, no numbers, no writing anywhere, no logos, no watermark, no supernatural creatures or frightening symbols. The photograph must feel like a real still life, not a diagram, collage or illustration.",
+      "promptStatus": "Exact prompt used for this generation.",
+      "provenance": "Generated with the built-in image_gen.imagegen tool for this project; one separate call for this asset.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "month.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 101916,
+          "sha256": "7f987c83de4eabd2a96d5d27639cf6799fb2868968728a9e3cf260062d47b4d8"
+        },
+        {
+          "file": "month-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 12202,
+          "sha256": "25767e180b85bf43a1808cc90fc43eddedc151c5dcbacb5e3cd5c1e4c2e96339"
+        }
+      ]
+    },
+    {
+      "id": "past-present-future",
+      "source": {
+        "file": "exec-ec83b0b1-417f-47c3-bf3e-6971c79e4bac.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 3080334,
+        "sha256": "5e89472943a86a6c76f5f9bea92040bdffd0ba77a3f9e348775050e1e477288b"
+      },
+      "description": "Три карты в ряд и небольшая старинная рамка с фотографией пустой садовой дорожки.",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium editorial still-life photo for the Russian tarot website «Таро ясно», past–present–future reading thumbnail. Create a realistic wide landscape photograph, aspect ratio 16:9. On softly folded milky ivory linen, arrange exactly THREE separate tarot cards face down in a gentle horizontal progression, each fully visible. Their textured dusty-lilac backs have fine muted-gold celestial linework with stars, crescent moons and restrained borders. Beside the cards place one small antique muted-gold picture frame with a faded old sepia photograph of an empty garden path; the photo contains no people and no faces. The frame is a quiet detail recalling memory, not the main subject. Palette: warm ivory, dusty lilac, subdued antique gold. Soft natural window light and long delicate shadows, believable paper, linen and metal texture; refined contemporary editorial photography, calm and thoughtful. Keep the three cards and frame comfortably inside the central 70% of the image, with generous clean margins. No text, no lettering, no numbers, no people, no hands, no logos, no watermark, no scary or supernatural imagery. Not an illustration, not a collage, not a diagram.",
+      "promptStatus": "Exact prompt used for this generation.",
+      "provenance": "Generated with the built-in image_gen.imagegen tool for this project; one separate call for this asset.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "past-present-future.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 128742,
+          "sha256": "c969ab9c3d13c6229c9652c0b7ed8da3c4a92f0e5a96f9444500e678f7f04ba9"
+        },
+        {
+          "file": "past-present-future-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 16336,
+          "sha256": "4a6268eb865506d192995e6cc0007209eb5bb94f93eb6d1e3a5b0bfbfdaf18fc"
+        }
+      ]
+    },
+    {
+      "id": "reasons",
+      "source": {
+        "file": "exec-e82cf693-4b55-4bd5-aa8e-c0cb675c34b9.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2901341,
+        "sha256": "fd4dcad7eaa2a49d61a390469cb93fe8f9920cd23c286d6e8b4a33c952990bb3"
+      },
+      "description": "Пять карт и тонкая сиреневая нить, переходящая от небольшого клубка в свободную линию.",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium editorial still-life photo for the Russian tarot website «Таро ясно», a reading about understanding reasons. Make a realistic 16:9 landscape photograph on softly folded milky ivory linen. Show exactly FIVE tarot cards face down, arranged as a clear spacious five-card cluster, all individually distinguishable. Card backs: textured dusty lilac with delicate muted-gold celestial linework, stars and crescent moons, fine borders. A single dusty-lilac cotton thread begins as a small loose tangle beside the cards and gradually unravels into one graceful simple line passing nearby; believable thread, no magical effects. The subtle visual metaphor is patiently untangling a situation. Warm ivory, dusty lilac and soft antique-gold palette; diffuse natural window light, gentle shadows, realistic tactile paper and linen, elegant contemporary magazine still-life photography. Keep every card and the key thread detail inside the central 70% with generous breathing room. No text, letters, numbers, people, hands, logos, watermark, faces, ominous imagery or extra cards. Not a diagram, not an illustration or collage.",
+      "promptStatus": "Exact prompt used for this generation.",
+      "provenance": "Generated with the built-in image_gen.imagegen tool for this project; one separate call for this asset.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "reasons.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 95748,
+          "sha256": "039f91873e201430e2aa7bd24bcdd517bb7f2df995aab83648a71c6693e326ba"
+        },
+        {
+          "file": "reasons-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 9268,
+          "sha256": "4f09e8af39857e66a4e24ef7de07efd4c011395d7325e2bc6dd14e4c65afd3bc"
+        }
+      ]
+    },
+    {
+      "id": "hidden",
+      "source": {
+        "file": "exec-002778d6-ebb7-46ff-bd74-25bb9e5e436d.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 3217368,
+        "sha256": "53d88834c09c60b352537de452f498ea936bde0f1dce2d905eca431ca8484283"
+      },
+      "description": "Три сиреневые карты на светлом льне, матовое стекло и мягкие многослойные тени.",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium editorial still-life photo for the Russian tarot website «Таро ясно», hidden-aspects reading thumbnail. Create a realistic wide 16:9 landscape photograph of exactly THREE face-down tarot cards on milky ivory linen. Their textured dusty-lilac backs carry fine muted-gold celestial linework, tiny stars, crescents and subtle borders. A small sheet or sculptural panel of softly frosted translucent glass rests at an angle behind the three cards, catching diffused light and casting gentle, layered shadows; it suggests looking more carefully without hiding the cards. Sophisticated calm daylight still life, subtle mystery through soft shadows only, tactile linen, paper and matte glass. Restrained ivory, dusty lilac and antique gold palette. Keep all three cards and the frosted-glass detail in the central 70% of the composition with uncluttered margins, and keep cards clearly distinguishable. No text, letters, numbers, people, hands, faces, logos, watermark, ominous blackness, horror or magical effects. Real editorial photography, not a render, illustration or diagram.",
+      "promptStatus": "Exact prompt used for this generation.",
+      "provenance": "Generated with the built-in image_gen.imagegen tool for this project; one separate call for this asset.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "hidden.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 135070,
+          "sha256": "c4d26078996a893defcbe83c3ee59da7582a6f5f92ea394ab809d30191720543"
+        },
+        {
+          "file": "hidden-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 11612,
+          "sha256": "735c739991f09c8ad9e002a62a2edd9d2fc866caf2122d8caf5453aa5f79949b"
+        }
+      ]
+    },
+    {
+      "id": "advice",
+      "source": {
+        "file": "exec-dd29f145-a413-4e3d-acf3-2633a2798964.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2731176,
+        "sha256": "74dc06bfd61df4c9cef8a8e4ac1af6c0aed1cc84e564befab40c464a68d2a138"
+      },
+      "description": "Одна сиреневая карта, светлая ручка и золотистый компас без букв и цифр.",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium editorial still-life photo for the Russian tarot website «Таро ясно», one-card advice reading thumbnail. Create a realistic wide landscape photo, aspect ratio 16:9. A single face-down tarot card lies near the centre on softly folded milky ivory linen. Its dusty-lilac textured back is decorated with fine muted-gold celestial linework: an elegant star, crescent moons and a restrained border. Beside it place a small brushed antique-gold compass with a simple needle and geometric tick marks only, absolutely no letters or numerals, plus one understated ivory-and-gold pen. A calm suggestion of orientation and a considered next step. Soft natural window light, gentle shadows, visible natural paper and fabric textures, premium contemporary editorial still-life photography. Restrained palette of milky ivory, dusty lilac and muted gold. Keep the single card, compass and pen entirely within the central 70% with generous margins. No additional cards, no text or handwriting, no letters or numbers on the compass, no people, no hands, no faces, no logos, no watermark, no frightening imagery, no magical glow. Not an illustration, collage or diagram.",
+      "promptStatus": "Exact prompt used for this generation.",
+      "provenance": "Generated with the built-in image_gen.imagegen tool for this project; one separate call for this asset.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "advice.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 94998,
+          "sha256": "0cd0d121eb80ff449e07a04fdba16937117f386c467b7150e9863647a56c6ffb"
+        },
+        {
+          "file": "advice-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 9664,
+          "sha256": "54561e4bfed1d7ce3affc861abe18d73c88f01ac73edf5fc9cbef8366e7d5cb1"
+        }
+      ]
+    },
+    {
+      "id": "relationship",
+      "source": {
+        "file": "exec-5c43e79f-f515-4854-aef1-7707fae24d77.png",
+        "format": "png",
+        "size": {
+          "width": 1672,
+          "height": 941
+        },
+        "bytes": 2848263,
+        "sha256": "68c819b5e154ce426aa117257b00b8e3e44c056907b35bb2587d59f191d639ad"
+      },
+      "description": "Пять карт двумя встречными группами с общей центральной картой и две светлые чашки.",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium editorial still-life photo for the Russian tarot website «Таро ясно», relationship reading thumbnail. Create a realistic 16:9 landscape photograph. On milky ivory linen arrange exactly FIVE face-down tarot cards: two lightly angled toward one another on the left, two lightly angled toward one another on the right, and one shared central card linking the two sides. Every card is individually visible and fully inside the frame. Their textured dusty-lilac backs have fine muted-gold celestial linework with stars, crescent moons and restrained borders. Place exactly TWO small ivory ceramic cups with fine muted-gold rims beyond the cards, one for each side, as a quiet composition prepared for a conversation. Calm contemporary editorial still-life photography, soft natural window light, delicate shadows, believable linen, paper and ceramic textures; no dramatic theatrical atmosphere. Palette: warm milky ivory, dusty lilac, subdued gold. Keep the main arrangement within the central 70% with generous margins. No people, hands, faces, text, lettering, numbers, logos, watermark, extra cards, scary symbols or magical effects. Not an illustration, collage or diagram.",
+      "promptStatus": "Exact prompt used for this generation.",
+      "provenance": "Generated with the built-in image_gen.imagegen tool for this project; one separate call for this asset.",
+      "format": "webp",
+      "variants": [
+        {
+          "file": "relationship.webp",
+          "size": {
+            "width": 1200,
+            "height": 675
+          },
+          "format": "webp",
+          "quality": 82,
+          "bytes": 92884,
+          "sha256": "13c03bd3c1f1a16f3a63b6292b0c1a794cdd02780329f95c2567b2001aecbfe2"
+        },
+        {
+          "file": "relationship-480.webp",
+          "size": {
+            "width": 480,
+            "height": 270
+          },
+          "format": "webp",
+          "quality": 80,
+          "bytes": 10428,
+          "sha256": "da5ecd56e9324f70c0bb245a55f59ed0a327f4d65f29358b53238d779a5b5747"
+        }
+      ]
+    }
+  ]
+}

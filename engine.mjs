@@ -11,33 +11,31 @@ export const meaning = c => c.meanings[c.reversed?'reversed':'upright'];
 const has=(c,...tags)=>tags.some(t=>meaning(c).tags.includes(t));
 const label=c=>`${c.name}${c.reversed?' (перевёрнутая)':''}`;
 const challenge=(c,topic)=>meaning(c)[topic==='love'?'loveChallenge':'challenge'];
-const fragment=s=>firstSentence(s).replace(/[.!?]$/,'');
 const firstSentence=s=>s.match(/[^.!?]+[.!?]/)?.[0]?.trim()||s;
 const isLove=s=>['feelings','thinking','together','relationship'].includes(s.id);
 const topicFor=(s,topic)=>isLove(s)?'love':['general','love','work'].includes(topic)?topic:'general';
 export function adviceFor(c,topic='general') {
  const m=meaning(c);
- // Each upright topic originally had its own practical advice. Reversed advice is separately authored.
- return c.reversed?m.advice:topic==='love'?c.love:topic==='work'?c.work:m.advice;
+ return (topic==='love'?m.loveAdvice:topic==='work'?m.workAdvice:m.advice)||m.advice;
 }
 export function interpret(c,context='general') {
  const m=meaning(c);
  if(context==='advice')return adviceFor(c);
- if(context==='resource')return `Опора этой карты — возможность изменить подход. ${m.advice}`;
+ if(context==='resource')return `На что можно опереться: ${m.advice}`;
  if(context==='challenge')return m.challenge;
- if(context==='past')return `Прежний опыт: ${m.general}`;
- if(context==='future')return `Если условия сохранятся: ${m.general}`;
+ if(context==='past')return `Что могло привести к нынешней ситуации: ${m.general}`;
+ if(context==='future')return `Возможное продолжение, если ничего не менять: ${m.general}`;
  return m[context]||m.general;
 }
 function positionReading(c,s,i,topic) {
  const role=s.roles[i],m=meaning(c),base=m[topic];
- const intros={past:'Этот опыт мог сформировать нынешний подход.',present:'Так читается нынешнее состояние ситуации.',future:'Такой сценарий возможен при сохранении текущих условий.',feelings:'В этой позиции карта описывает эмоциональную сторону связи.',thoughts:'В этой позиции карта задаёт тему возможных мыслей о контакте.',partner:'Так можно прочитать участие другой стороны в нынешней динамике.',self:'В этой позиции речь о вашем участии и состоянии.',action:'Здесь важно, как намерение может проявиться в поступках.',outcome:'Эта позиция показывает направление развития связи.',bond:'Это качество определяет то, на чём держится взаимодействие.'};
+ const intros={past:'Возможно, этот опыт до сих пор влияет на вас.',future:'Если всё останется как сейчас, история может продолжиться так.',partner:'Посмотрите, насколько это похоже на поступки другого человека.',self:'Здесь стоит присмотреться к своей роли в отношениях.',action:'Сверьте эту подсказку с реальными поступками.',outcome:'Такой поворот возможен при нынешнем подходе.'};
  if(role==='challenge') return challenge(c,topic);
- if(role==='advice')return `Эта карта определяет подход к следующему шагу. ${base}`;
- if(role==='resource')return `${firstSentence(base)} Использовать эту сторону карты можно так: ${adviceFor(c,topic)}`;
- if(role==='criterion')return `Эта позиция уточняет, что важнее оценить перед решением. ${base}`;
+ if(role==='advice')return adviceFor(c,topic);
+ if(role==='resource')return `${firstSentence(base)} Попробуйте опереться на такой подход: ${adviceFor(c,topic)}`;
+ if(role==='criterion')return `Сравните оба варианта с помощью этой подсказки. ${adviceFor(c,topic)}`;
  if(role==='phase')return base;
- if(role==='thoughts')return `${intros[role]} ${has(c,'past')?'Карта обращает к знакомому опыту и воспоминаниям о связи.':has(c,'clear','interest')?'Внимание может быть связано с интересом разобраться в контакте, а не обязательно с романтическим намерением.':has(c,'distance','pause')?'Дистанция и пауза не позволяют сделать вывод об активной вовлечённости.':base}`;
+ if(role==='thoughts')return `${base} ${has(c,'past')?'Здесь может быть важна общая история: что из прошлого вы оба ещё помните?':has(c,'interest')?'Если интерес к общению есть, его всё равно стоит отличать от готовности к отношениям.':has(c,'clear')?'Какой прямой вопрос поможет вам прояснить общение и меньше додумывать за другого человека?':has(c,'distance','pause')?'По одной паузе трудно понять чужие намерения — поможет спокойный разговор.':'Какая часть этого описания подтверждается вашим общением?'}`;
  return `${intros[role]||''} ${base}`.trim();
 }
 export function priority(c) { return meaning(c).priority; }
@@ -47,19 +45,19 @@ export function interactions(cards,s,topic) {
  const push=(a,b,text)=>out.push({ids:[a.c.id,b.c.id],positions:[a.i,b.i],text:`${label(a.c)} («${s.positions[a.i]}») и ${label(b.c)} («${s.positions[b.i]}»): ${text}`});
  for(let i=0;i<active.length;i++)for(let j=i+1;j<active.length;j++){
   const a=active[i],b=active[j],ids=[a.c.id,b.c.id],bothUp=!a.c.reversed&&!b.c.reversed;
-  if(bothUp&&ids.includes('lovers')&&ids.includes('devil'))push(a,b,'притяжение выражено, но свобода согласия и зависимость вступают в противоречие. Сильное желание здесь не равнозначно подходящим условиям союза.');
-  else if(bothUp&&ids.includes('sun')&&ids.includes('moon'))push(a,b,'открытые проявления соседствуют с неясностью. Хорошее впечатление не устраняет вопросы, на которые пока нет подтверждённого ответа.');
-  else if(bothUp&&ids.includes('queen-cups')&&ids.includes('king-pentacles'))push(a,b,'эмоциональная чуткость сочетается с практической ответственностью. Тепло получает опору в последовательных действиях, если эти качества действительно проявляются с обеих сторон.');
-  else if(bothUp&&ids.includes('tower')&&ids.includes('star'))push(a,b,'пересмотр прежней опоры сочетается с возможностью восстановления. Надежда относится к новому способу продолжать, а не к отмене произошедшей перемены.');
-  else if((has(a.c,'ending')&&has(b.c,'recovery'))||(has(b.c,'ending')&&has(a.c,'recovery')))push(a,b,'завершение старого сценария сочетается с восстановлением. Улучшение предполагает изменение условий, а не автоматическое возвращение к прежнему.');
-  else if(topic==='love'&&((has(a.c,'warmth','interest')&&has(b.c,'distance','block'))||(has(b.c,'warmth','interest')&&has(a.c,'distance','block'))))push(a,b,'интерес или тепло сталкивается с дистанцией. Эмоциональный отклик и готовность поддерживать связь здесь нельзя считать одним и тем же.');
-  else if((has(a.c,'motion','initiative')&&has(b.c,'pause'))||(has(b.c,'motion','initiative')&&has(a.c,'pause')))push(a,b,'импульс к действию встречает задержку. Продвижение зависит от того, будет ли устранена причина паузы, а не от силы желания ускориться.');
-  else if(has(a.c,'steady')&&has(b.c,'steady'))push(a,b,'две позиции поддерживают последовательность. Продвижение лучше читается через повторяемое участие, чем через единичный яркий жест.');
-  else if((has(a.c,'unclear')&&has(b.c,'clear'))||(has(b.c,'unclear')&&has(a.c,'clear')))push(a,b,'неопределённость и стремление к ясности присутствуют одновременно. Вывод зависит от уточнения условий, а не от выбора более приятного объяснения.');
+  if(bothUp&&ids.includes('lovers')&&ids.includes('devil'))push(a,b,'притяжение выражено сильно, и именно поэтому легко закрыть глаза на неудобные условия. Спросите себя: можете ли вы свободно сказать «нет» и остаться собой в этой связи?');
+  else if(bothUp&&ids.includes('sun')&&ids.includes('moon'))push(a,b,'открытые проявления соседствуют с неясностью. Что-то уже радует, а в чём-то вы пока вынуждены гадать. Уточните недостающие детали, прежде чем делать большой вывод.');
+  else if(bothUp&&ids.includes('queen-cups')&&ids.includes('king-pentacles'))push(a,b,'чуткость соединяется с практической ответственностью: выслушать, поддержать и сделать обещанное. Хороший ориентир — забота, которую видно в обычных делах.');
+  else if(bothUp&&ids.includes('tower')&&ids.includes('star'))push(a,b,'резкая перемена соседствует с возможностью восстановления. Сначала разберитесь с тем, что требует внимания прямо сейчас; к большим планам можно вернуться, когда появится опора.');
+  else if((has(a.c,'ending')&&has(b.c,'recovery'))||(has(b.c,'ending')&&has(a.c,'recovery')))push(a,b,'завершение старой истории связано с восстановлением. Отпустить прежнее бывает трудно, но это оставляет место для более подходящих условий и привычек.');
+  else if(topic==='love'&&((has(a.c,'warmth','interest')&&has(b.c,'distance','block'))||(has(b.c,'warmth','interest')&&has(a.c,'distance','block'))))push(a,b,'тепло сталкивается с дистанцией. Человек может быть вам дорог, а общение всё равно оставаться редким или неудобным. Посмотрите, устраивает ли вас то участие, которое есть сейчас.');
+  else if((has(a.c,'motion','initiative')&&has(b.c,'pause'))||(has(b.c,'motion','initiative')&&has(a.c,'pause')))push(a,b,'одна карта торопит, другая предлагает остановиться. Найдите причину задержки: иногда нужен разговор или подготовка, а иногда — просто время.');
+  else if(has(a.c,'steady')&&has(b.c,'steady'))push(a,b,'обе карты поддерживают спокойную последовательность. Небольшое действие, которое вы сможете повторить, принесёт больше пользы, чем один красивый рывок.');
+  else if((has(a.c,'unclear')&&has(b.c,'clear'))||(has(b.c,'unclear')&&has(a.c,'clear')))push(a,b,'желание всё прояснить встречается с нехваткой информации. Назовите один вопрос, ответ на который действительно изменит ваше решение, и начните с него.');
  }
  // Obstacle is never counted as an extra positive vote, even when it is the Sun or Two of Cups.
  const barrier=s.roles.indexOf('challenge');
- if(barrier>=0&&cards.length>1){const a=cards[0],b=cards[barrier];out.unshift({ids:[a.id,b.id],positions:[0,barrier],text:`${label(a)} задаёт исходную картину, а ${label(b)} в позиции «${s.positions[barrier]}» ограничивает её: ${challenge(b,topic)}`});}
+ if(barrier>=0&&cards.length>1){const a=cards[0],b=cards[barrier];out.unshift({ids:[a.id,b.id],positions:[0,barrier],text:`${label(a)} описывает начало истории. ${label(b)} в позиции «${s.positions[barrier]}» показывает, где можно споткнуться. ${challenge(b,topic)}`});}
  return out.filter((v,i,a)=>a.findIndex(x=>x.text.split(': ').slice(1).join(': ')===v.text.split(': ').slice(1).join(': '))===i).slice(0,2);
 }
 function yesNo(cards,topic) {
@@ -69,18 +67,18 @@ function yesNo(cards,topic) {
  if(ma.direction==='yes'&&!severe&&!difficultAction)verdict='Скорее да';
  else if(ma.direction==='no'&&!has(c,'recovery'))verdict='Скорее нет';
  else verdict='Однозначного ответа нет';
- const tone=verdict==='Скорее да'?'Карты поддерживают желаемое развитие при соблюдении условия':verdict==='Скорее нет'?'Прежний способ продолжать ситуацию встречает серьёзное ограничение':'Поддержка и ограничения пока не складываются в уверенное направление';
- return {verdict,answer:`${verdict}. ${tone}: ${fragment(challenge(b,topic)).toLocaleLowerCase('ru')}.`};
+ const tone=verdict==='Скорее да'?'В раскладе есть поддержка вашей идеи.':verdict==='Скорее нет'?'В нынешних условиях будет трудно получить желаемое. Стоит пересмотреть подход.':'Карты показывают разные стороны вопроса: спешить с окончательным решением пока не стоит.';
+ return {verdict,answer:`${verdict}. ${tone} Что особенно важно учесть: ${challenge(b,topic)}`};
 }
 function connectionAnswer(cards,s) {
  const primary=cards[s.id==='relationship'?2:0],lastOutcome=cards[s.id==='together'?3:s.id==='thinking'?2:0];
  const p=meaning(primary);const barrier=cards[s.roles.indexOf('challenge')];
  const blocked=barrier&&(has(barrier,'block','ending')||meaning(barrier).direction==='no');
  let lead;
- if(s.id==='thinking')lead=has(primary,'past')?'По этому раскладу тема контакта связана прежде всего с воспоминаниями.':has(primary,'interest','clear')?'По этому раскладу можно предположить внимание к контакту, но нельзя приравнять его к романтическому намерению.':'По этому раскладу однозначно говорить об активной мысленной вовлечённости нельзя.';
- else if(s.id==='together')lead=has(lastOutcome,'control')&&has(lastOutcome,'interest')?'По этому раскладу связь может удерживаться сильным влечением, но её условия требуют пересмотра.':has(lastOutcome,'ending','block','distance')?'По этому раскладу сохранение прежнего подхода скорее увеличивает дистанцию.':has(lastOutcome,'steady','warmth','commitment')&&!blocked?'По этому раскладу есть основа для сближения, если участие будет взаимным.':'По этому раскладу перспектива пары остаётся условной: намерениям ещё нужна опора в согласованных действиях.';
- else lead=has(primary,'control')&&has(primary,'interest')?'По этому раскладу влечение заметно, но оно связано с зависимостью или неравными условиями.':has(primary,'ending','distance','block')?'По этому раскладу дистанция выражена сильнее готовности к сближению.':has(primary,'unclear')?'По этому раскладу чувства и намерения остаются неоднозначными.':has(primary,'warmth')?'По этому раскладу есть эмоциональное тепло, но готовность строить отношения нужно рассматривать отдельно.':has(primary,'interest')?'По этому раскладу заметен интерес, который пока нельзя приравнять к устойчивой близости.':'По этому раскладу связь определяется условиями взаимодействия сильнее, чем открытым проявлением чувств.';
- if(blocked&&!lead.includes('дистанц'))lead+=' Существенное препятствие ограничивает развитие даже при наличии интереса.';
+ if(s.id==='thinking')lead=has(primary,'past')?'Этот расклад связан прежде всего с воспоминаниями: общей историей и тем, что осталось недосказанным.':has(primary,'interest')?'Карта допускает интерес к общению, но нельзя приравнять его к романтическому намерению.':has(primary,'clear')?'Карта предлагает прояснить общение: чего вы ждёте друг от друга и о чём ещё не поговорили.':'Карты предлагают присмотреться к качеству общения. По этому раскладу нельзя уверенно судить, как часто человек думает о вас.';
+ else if(s.id==='together')lead=has(lastOutcome,'control')&&has(lastOutcome,'interest')?'Связь может держаться на сильном влечении, даже когда её условия утомляют. Подумайте, что нужно изменить, чтобы обоим было свободнее.':has(lastOutcome,'ending','block','distance')?'Прежний подход скорее увеличивает дистанцию. Для сближения понадобятся изменения с обеих сторон.':has(lastOutcome,'steady','warmth','commitment')&&!blocked?'В раскладе есть основа для сближения. Она станет надёжнее, если оба готовы участвовать в отношениях.':'Общая перспектива ещё складывается. Желание быть вместе стоит подкрепить простыми договорённостями и поступками.';
+ else lead=has(primary,'control')&&has(primary,'interest')?'В этой истории влечение заметно, но вместе с ним могут появляться зависимость или неравные условия.':has(primary,'ending','distance','block')?'Сейчас в раскладе больше дистанции, чем готовности сближаться. Прежде чем делать шаг навстречу, разберитесь, что именно вас разделяет.':has(primary,'unclear')?'Чувства и намерения остаются неоднозначными. Похоже, ясности в этой истории хочется больше, чем есть сейчас.':has(primary,'warmth')?'В раскладе есть эмоциональное тепло. Присмотритесь, как оно проявляется: в разговорах, заботе, желании находить время друг для друга.':has(primary,'interest')?'Карта говорит об интересе, который ещё не стал устойчивой близостью. Дайте себе время увидеть, как это проявляется в общении.':'В этой истории особенно важны условия общения: насколько вам удобно, спокойно и понятно рядом друг с другом.';
+ if(blocked&&!lead.includes('дистанц'))lead+=' При этом препятствие в раскладе заслуживает отдельного внимания — одного интереса может оказаться мало.';
  return `${lead} ${label(primary)}: ${firstSentence(p.love)}`;
 }
 export function readSpread(cards,s,requestedTopic='general') {
@@ -89,42 +87,44 @@ export function readSpread(cards,s,requestedTopic='general') {
  const pairs=interactions(cards,s,topic);const barrier=s.roles.indexOf('challenge');const adviceIndex=s.roles.lastIndexOf('advice');
  let answer,verdict=null,details=[],attention=barrier>=0?challenge(cards[barrier],topic):challenge(cards[0],topic);
  let advice=adviceFor(cards[adviceIndex>=0?adviceIndex:cards.length-1],topic);
- if(cards.length>1&&adviceIndex>=0)attention=challenge(cards[adviceIndex],topic);
+ // A real obstacle takes precedence over the shadow side of the advice card.
+ if(barrier<0&&cards.length>1&&adviceIndex>=0)attention=challenge(cards[adviceIndex],topic);
  if(cards.length===1){const m=meaning(cards[0]);return {answer:s.id==='advice'?advice:m.general,details:[],notes:[],attention:challenge(cards[0],topic),advice,day:s.id==='day'?{love:m.love,work:m.work,mood:m.mood}:null,topic,verdict,pairs:[]};}
  if(s.id==='yes-no'){
   ({answer,verdict}=yesNo(cards,topic));
   const [a,b,c]=cards;
-  const lead=meaning(a).direction==='yes'?(verdict==='Скорее да'?'благоприятное начало получает продолжение через последовательное действие':'благоприятное начало не устраняет существенного затруднения'):meaning(a).direction==='no'?'прежние условия ограничивают результат, поэтому простой повтор усилия не решает проблему':'исходная ситуация ещё допускает разные направления, и последующие карты уточняют условия';
-  details=[`${label(a)} и ${label(b)}: ${lead}.`,`${label(c)} в позиции совета смещает внимание на ${priority(c,topic)}. ${c.id==='five-pentacles'?'Поддержку полезно искать вне прежнего замкнутого круга.':has(c,'pause','distance')?'Это требует времени на решение, а не немедленного результата.':has(c,'clear')?'Продвижение зависит от уточнения условий и прямого обсуждения.':has(c,'overload')?'Без уменьшения нагрузки даже подходящее решение будет трудно поддерживать.':has(c,'control','block')?'Действовать через давление или повтор старой схемы здесь не поможет.':'Вывод стоит связывать с последовательным участием, которое можно заметить в реальной ситуации.'}`];
+  const lead=meaning(a).direction==='yes'?(verdict==='Скорее да'?'Хорошее начало стоит поддержать конкретным действием.':'Хорошее начало ещё не снимает трудностей, которые показали остальные карты.'):meaning(a).direction==='no'?'Просто стараться сильнее может быть недостаточно: сначала проверьте сами условия.':'Ситуация ещё может повернуться по-разному. Важнее всего понять, что вы можете прояснить сейчас.';
+  details=[`${label(a)}: ${meaning(a)[topic]} ${lead}`,`${label(c)} подсказывает следующий шаг. ${adviceFor(c,topic)}`];
  }else if(isLove(s)){
   answer=connectionAnswer(cards,s);
   details=pairs.map(x=>x.text);
-  if(s.id==='thinking')details.push(`Готовность к реальному контакту читается отдельно: ${label(cards[2])}. ${meaning(cards[2]).love}`);
-  if(s.id==='together')details.push(`Опора для сближения — ${label(cards[2])}. ${meaning(cards[2]).love} Направление при сохранении условий — ${label(cards[3])}. ${meaning(cards[3]).love}`);
-  if(s.id==='relationship')details.push(`Ваше участие (${label(cards[0])}) и участие другой стороны (${label(cards[1])}) различаются: ${firstSentence(meaning(cards[0]).love)} ${firstSentence(meaning(cards[1]).love)}`);
+  if(s.id==='thinking')details.push(`Как это проявляется в общении? В этой позиции — ${label(cards[2])}. ${meaning(cards[2]).love}`);
+  if(s.id==='together')details.push(`Что поможет стать ближе (${label(cards[2])}): ${adviceFor(cards[2],'love')} Возможное продолжение (${label(cards[3])}): ${meaning(cards[3]).love}`);
+  if(s.id==='relationship')details.push(`С вашей стороны (${label(cards[0])}): ${firstSentence(meaning(cards[0]).love)} Со стороны партнёра (${label(cards[1])}): ${firstSentence(meaning(cards[1]).love)} Найдите, где ваши ожидания совпадают, а где о них стоит поговорить.`);
  }else if(['week','month'].includes(s.id)){
   const n=cards.length-1,anchor=cards.at(-1);
-  answer=`${s.id==='week'?'На неделю':'На месяц'} основной акцент — ${priority(anchor,topic)}. В начале: ${firstSentence(meaning(cards[0])[topic])} К завершению: ${firstSentence(meaning(cards[n-1])[topic])}`;
-  details=[`Общая опора — ${label(anchor)}. ${meaning(anchor)[topic]}`,...pairs.filter(p=>p.positions.every(i=>i<n)).slice(0,1).map(x=>x.text)];
-  attention=meaning(cards.slice(0,n).find(c=>has(c,'block','overload','unclear'))||cards[n-1]).challenge;
+  answer=`Тему ${s.id==='week'?'недели':'месяца'} задаёт ${label(anchor)}. ${firstSentence(meaning(anchor)[topic])} Начало периода: ${firstSentence(meaning(cards[0])[topic])} Ближе к завершению: ${firstSentence(meaning(cards[n-1])[topic])}`;
+  details=pairs.filter(p=>p.positions.every(i=>i<n)).slice(0,2).map(x=>x.text);
+  if(!details.length)details=[`Начало и завершение периода стоит связать одним посильным действием. ${adviceFor(cards[0],topic)} Ближе к концу снова оцените свои планы: ${adviceFor(cards[n-1],topic)}`];
+  attention=challenge(cards.slice(0,n).find(c=>has(c,'block','overload','unclear'))||cards[n-1],topic);
  }else if(s.id==='choice'){
   const [a,ac,b,bc,criterion]=cards;
-  const pa=priority(a,topic),pb=priority(b,topic);answer=[['А',a,pa],['Б',b,pb]].map(([name,c,p])=>has(c,'block','ending','overload')||meaning(c).direction==='no'?`Вариант ${name} требует пересмотра условий: ${fragment(meaning(c)[topic]).toLocaleLowerCase('ru')}.`:`Вариант ${name} стоит рассмотреть, если важнее ${p}.`).join(' ')+` Критерий сравнения — ${priority(criterion,topic)}.`;
-  details=[`Путь А соединяет ${label(a)} и ${label(ac)}. Здесь нужно сопоставить два требования: ${priority(a)} и ${priority(ac)}. Увлечение первым не снимает необходимости учитывать второе.`,`Путь Б соединяет ${label(b)} и ${label(bc)}. Здесь важны ${priority(b)} и ${priority(bc)}. Сравните, какие из этих условий вы действительно можете обеспечить.`];
-  attention=`Пятая карта (${label(criterion)}) добавляет важное ограничение: ${fragment(challenge(criterion,topic)).toLocaleLowerCase('ru')}.`;advice=adviceFor(criterion,topic);
+  answer=[['А',a],['Б',b]].map(([name,c])=>`Вариант ${name}: ${firstSentence(meaning(c)[topic])}`).join(' ')+` Решая, какой путь вам подходит, учитывайте и его цену — она показана отдельной картой.`;
+  details=[`Путь А — ${label(a)} и ${label(ac)}. Возможность: ${meaning(a)[topic]} Что может помешать: ${challenge(ac,topic)}`,`Путь Б — ${label(b)} и ${label(bc)}. Возможность: ${meaning(b)[topic]} Что может помешать: ${challenge(bc,topic)}`];
+  attention=`У пути А есть такое ограничение: ${firstSentence(challenge(ac,topic))} У пути Б — своё: ${firstSentence(challenge(bc,topic))}`;advice=adviceFor(criterion,topic);
  }else if(s.id==='past-present-future'){
-  answer=`В прошлом: ${firstSentence(meaning(cards[0])[topic])} Сейчас: ${firstSentence(meaning(cards[1])[topic])} Если ничего не менять: ${firstSentence(meaning(cards[2])[topic])}`;
+  answer=`Из прошлого: ${firstSentence(meaning(cards[0])[topic])} Сейчас: ${firstSentence(meaning(cards[1])[topic])} Возможное продолжение при нынешнем подходе: ${firstSentence(meaning(cards[2])[topic])}`;
   details=pairs.map(x=>x.text);attention=challenge(cards[1],topic);advice=adviceFor(cards[1],topic);
  }else if(s.id==='reasons'){
-  answer=`Возможная внутренняя причина — ${label(cards[1])}: ${firstSentence(challenge(cards[1],topic))} Внешнее ограничение — ${label(cards[2])}: ${firstSentence(challenge(cards[2],topic))} Опора для выхода — ${label(cards[3])}: ${firstSentence(meaning(cards[3])[topic])}`;
-  details=[`Проблема выглядит так: ${meaning(cards[0])[topic]}`,`Ресурс и первый шаг связаны: ${label(cards[3])} — ${firstSentence(meaning(cards[3])[topic])} ${label(cards[4])} — ${advice}`];
+  answer=`Внутри самой ситуации может мешать вот что: ${firstSentence(challenge(cards[1],topic))} Есть и внешняя сторона: ${firstSentence(challenge(cards[2],topic))} Начать распутывать этот узел поможет ${label(cards[3])}. ${firstSentence(adviceFor(cards[3],topic))}`;
+  details=[`Как выглядит проблема (${label(cards[0])}): ${meaning(cards[0])[topic]}`,`На что опереться (${label(cards[3])}): ${adviceFor(cards[3],topic)} Первый шаг (${label(cards[4])}): ${advice}`];
   attention=challenge(cards[2],topic);
  }else if(s.id==='hidden'){
-  answer=`Вы можете не учитывать следующее: ${challenge(cards[1],topic)} Это уточняет видимую сторону ситуации (${label(cards[0])}), но не доказывает чьих-либо скрытых намерений.`;
-  details=[`На виду: ${meaning(cards[0])[topic]}`,`Проверка предположения (${label(cards[2])}): ${advice}`];
+  answer=`Возможно, из поля зрения выпало вот что: ${challenge(cards[1],topic)} Эта подсказка не доказывает, что кто-то что-то скрывает. Вспомните, какой факт поможет её проверить.`;
+  details=[`Что видно сейчас (${label(cards[0])}): ${meaning(cards[0])[topic]}`,`Как разобраться (${label(cards[2])}): ${advice}`];
  }
  if(!details.length)details=pairs.map(x=>x.text);
- if(!details.length)details=[`В позиции «${s.positions[0]}» карта ${label(cards[0])} указывает: ${fragment(meaning(cards[0])[topic]).toLocaleLowerCase('ru')}; в позиции «${s.positions.at(-1)}» карта ${label(cards.at(-1))} добавляет: ${fragment(meaning(cards.at(-1))[topic]).toLocaleLowerCase('ru')}.`];
+ if(!details.length)details=notes.map(n=>`${n.position} — ${n.name}. ${n.text}`);
  return {answer,details,notes,attention,advice,day:null,topic,verdict,pairs};
 }
 export function synthesize(cards,spread,topic='general'){return readSpread(cards,spread,topic).answer;}

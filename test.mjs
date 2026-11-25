@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {cards,spreads} from './build.mjs';import {shuffle,interpret,synthesize,localDay,randomInt,readSpread,restoreDaily} from './engine.mjs';
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {cards,spreads} from './build.mjs';import {shuffle,interpret,synthesize,localDay,randomInt,readSpread,restoreDaily,adviceFor} from './engine.mjs';
 test('complete, unique and authored deck',()=>{assert.equal(cards.length,78);assert.equal(new Set(cards.map(c=>c.id)).size,78);assert.equal(cards.filter(c=>c.suit==='major').length,22);for(const suit of ['cups','wands','swords','pentacles'])assert.equal(cards.filter(c=>c.suit===suit).length,14);for(const c of cards)for(const key of ['name','upright','reverse','love','work','advice'])assert.ok(c[key]?.length>(key==='name'?1:20), c.id+': '+key);assert.equal(new Set(cards.map(c=>c.upright)).size,78)});
 test('shuffle preserves all cards with no repetition across 200 full decks',()=>{let rev=0;const first=new Set();for(let i=0;i<200;i++){const d=shuffle(cards);assert.equal(d.length,78);assert.equal(new Set(d.map(c=>c.id)).size,78);first.add(d[0].id);rev+=d.filter(c=>c.reversed).length;}assert.ok(first.size>20);assert.ok(rev>6000&&rev<10000);assert.equal(cards[0].reversed,undefined)});
 test('rejection sampling and bounds',()=>{let n=0;assert.equal(randomInt(3,{getRandomValues:a=>{a[0]=n++===0?4294967295:5;return a}}),2);assert.equal(n,2);assert.throws(()=>randomInt(0))});
@@ -29,4 +29,36 @@ test('orientation affects every day section for all cards',()=>{const s=spreads[
 test('same cards in different roles change choice meaning',()=>{const a=fixtures.find(x=>x.name==='Выбор темпа против стабильности'),b=fixtures.find(x=>x.name==='Смена позиций меняет ограничения выбора'),s=spreads.find(s=>s.id==='choice');assert.notEqual(readSpread(materialize(a,cards),s,'work').details[0],readSpread(materialize(b,cards),s,'work').details[0])});
 test('topic changes real content, including single-card advice',()=>{for(const f of fixtures.filter(f=>!['feelings','thinking','together','relationship','day'].includes(f.spread))){const s=spreads.find(s=>s.id===f.spread),d=materialize(f,cards);assert.notEqual(JSON.stringify(readSpread(d,s,'love')),JSON.stringify(readSpread(d,s,'work')))}});
 test('daily restore accepts only current local date, known id and boolean orientation',()=>{const raw=JSON.stringify({day:'2026-11-05',id:'empress',reversed:true});assert.equal(restoreDaily(raw,cards,'2026-11-05').reversed,true);assert.equal(restoreDaily(raw,cards,'2026-11-06'),null);for(const x of ['garbage','null','{}',JSON.stringify({day:'2026-11-05',id:'unknown',reversed:true}),JSON.stringify({day:'2026-11-05',id:'empress',reversed:'false'})])assert.equal(restoreDaily(x,cards,'2026-11-05'),null)});
+test('actual obstacle is retained when a different card gives the advice',()=>{
+ const s=spreads.find(s=>s.id==='yes-no'),selected=materialize({cards:['sun','tower','queen-cups']},cards);
+ for(const topic of ['general','love','work']){
+  const r=readSpread(selected,s,topic),m=selected[1].meanings.upright;
+  assert.equal(r.attention,topic==='love'?m.loveChallenge:m.challenge);
+  assert.equal(r.notes[2].text,adviceFor(selected[2],topic));
+ }
+});
+test('both orientations have genuinely distinct advice for love and work',()=>{
+ const s=spreads.find(s=>s.id==='advice');
+ for(const card of cards)for(const reversed of [false,true]){
+  const c={...card,reversed},m=c.meanings[reversed?'reversed':'upright'];
+  assert.ok(m.loveAdvice.length>20);assert.ok(m.workAdvice.length>20);
+  assert.notEqual(m.loveAdvice,m.workAdvice,card.id);
+  assert.equal(readSpread([c],s,'love').answer,m.loveAdvice);
+  assert.equal(readSpread([c],s,'work').answer,m.workAdvice);
+ }
+});
+test('choice preserves the separate costs of both paths',()=>{
+ const s=spreads.find(s=>s.id==='choice'),selected=materialize({cards:['knight-wands','ten-wands','knight-pentacles','four-pentacles','justice']},cards),r=readSpread(selected,s,'work');
+ assert.ok(r.details[0].includes(selected[1].meanings.upright.challenge));
+ assert.ok(r.details[1].includes(selected[3].meanings.upright.challenge));
+ assert.equal(r.advice,selected[4].meanings.upright.workAdvice);
+});
+test('every spread has a real responsive photo',()=>{
+ for(const s of spreads){
+  for(const suffix of ['','-480'])assert.ok(fs.statSync(`dist/assets/spreads/${s.id}${suffix}.webp`).size>2000,s.id+suffix);
+  const html=fs.readFileSync(`dist/spreads/${s.id}/index.html`,'utf8');
+  assert.ok(html.includes(`/assets/spreads/${s.id}.webp`),s.id);
+  assert.ok(html.includes('srcset='),s.id);
+ }
+});
 test('new headings, safe text serialization, unchanged routes and no old mechanical copy',()=>{const html=fs.readFileSync('dist/index.html','utf8');assert.ok(html.includes('Бесплатные расклады <em>Таро онлайн'));assert.ok(!html.includes('Ваш вопрос.<br>'));for(const s of spreads){const html=fs.readFileSync(`dist/spreads/${s.id}/index.html`,'utf8');assert.ok(html.includes('Задумайте вопрос'));assert.ok(html.includes('Другие расклады'));assert.ok(html.includes('Сделать новый расклад'));assert.ok(!forbidden.test(html.replace(/<script[\s\S]*?<\/script>/g,''))); assert.ok(html.includes('tabindex="-1"'));}assert.ok(fs.readFileSync('style.css','utf8').includes('prefers-reduced-motion'))});

@@ -1,4 +1,4 @@
-import {shuffle,readSpread,restoreDaily,localDay} from './engine.mjs?v=3.0.0';
+import {shuffle,readSpread,restoreDaily,localDay} from './engine.mjs?v=4.0.0';
 const data=JSON.parse(document.querySelector('#site-data').textContent);
 const $=s=>document.querySelector(s); const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storage={get(k){try{return localStorage.getItem(k)}catch{return null}},set(k,v){try{localStorage.setItem(k,v);return true}catch{return false}},remove(k){try{localStorage.removeItem(k)}catch{}}};
